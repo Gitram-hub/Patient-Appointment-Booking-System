@@ -1,0 +1,22 @@
+{
+  "name": "ai-patient-booking-system",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server",
+    "ai-service"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w client\" \"npm run dev -w server\" \"npm run dev -w ai-service\"",
+    "build": "npm run build -w client && npm run build -w server && npm run build -w ai-service",
+    "seed": "npm run seed -w server",
+    "install:all": "npm install --workspaces"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
