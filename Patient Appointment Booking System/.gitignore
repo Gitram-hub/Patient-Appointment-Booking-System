@@ -1,0 +1,16 @@
+node_modules
+.env
+.env.*
+!.env.example
+dist
+build
+coverage
+.vscode
+.DS_Store
+*.log
+client/dist
+server/dist
+ai-service/dist
+client/.vite
+uploads
+chroma_db
