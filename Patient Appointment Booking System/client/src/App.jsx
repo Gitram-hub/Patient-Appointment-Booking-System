@@ -10,6 +10,7 @@ import DoctorProfilePage from './pages/patient/DoctorProfilePage.jsx';
 import AppointmentsPage from './pages/patient/AppointmentsPage.jsx';
 import DoctorDashboard from './pages/doctor/DoctorDashboard.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
+import AdminMetricDetailsPage from './pages/admin/AdminMetricDetailsPage.jsx';
 import AssistantPage from './pages/public/AssistantPage.jsx';
 import AnalyticsPage from './pages/public/AnalyticsPage.jsx';
 import NotFoundPage from './pages/public/NotFoundPage.jsx';
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/appointments" element={<AppointmentsPage />} />
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-dashboard/details/:view" element={<AdminMetricDetailsPage />} />
         <Route path="/analytics" element={<AnalyticsPage />} />
       </Route>
       <Route path="/home" element={<Navigate to="/dashboard" replace />} />

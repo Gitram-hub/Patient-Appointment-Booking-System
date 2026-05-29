@@ -1,6 +1,10 @@
-export const StatCard = ({ title, value, change, accent = 'bg-clinic-600' }) => {
+export const StatCard = ({ title, value, change, accent = 'bg-clinic-600', onClick, active = false }) => {
   return (
-    <div className="glass-panel rounded-3xl p-5">
+    <button
+      type="button"
+      onClick={onClick}
+      className={`glass-panel block w-full rounded-3xl p-5 text-left transition hover:-translate-y-1 hover:shadow-soft ${active ? 'ring-2 ring-clinic-500' : ''}`}
+    >
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm text-slate-500 dark:text-slate-400">{title}</p>
@@ -9,6 +13,6 @@ export const StatCard = ({ title, value, change, accent = 'bg-clinic-600' }) => 
         </div>
         <div className={`h-12 w-12 rounded-2xl ${accent} shadow-soft`} />
       </div>
-    </div>
+    </button>
   );
 };

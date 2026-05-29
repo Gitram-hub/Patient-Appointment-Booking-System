@@ -20,28 +20,74 @@ export const seedDemoData = async ({ disconnect = true } = {}) => {
 
   const users = await User.create([
     { name: 'Ava Patient', email: 'patient@demo.com', password: patientPassword, role: 'patient', phone: '555-1001' },
-    { name: 'Dr. Sofia Carter', email: 'doctor@demo.com', password: doctorPassword, role: 'doctor', phone: '555-1002' },
-    { name: 'Admin User', email: 'admin@demo.com', password: adminPassword, role: 'admin', phone: '555-1003' }
+    { name: 'Dr. Arjun Sharma', email: 'doctor@demo.com', password: doctorPassword, role: 'doctor', phone: '555-1002' },
+    { name: 'Admin User', email: 'admin@demo.com', password: adminPassword, role: 'admin', phone: '555-1003' },
+    { name: 'Dr. Priya Nair', email: 'priya.nair@demo.com', password: doctorPassword, role: 'doctor', phone: '555-1004' },
+    { name: 'Dr. Rahul Mehta', email: 'rahul.mehta@demo.com', password: doctorPassword, role: 'doctor', phone: '555-1005' },
+    { name: 'Dr. Ananya Iyer', email: 'ananya.iyer@demo.com', password: doctorPassword, role: 'doctor', phone: '555-1006' }
   ]);
 
-  const doctor = await Doctor.create({
-    userId: users[1]._id,
-    specialization: 'General Physician',
-    experienceYears: 12,
-    bio: 'General physician with a focus on preventive care and symptom triage.',
-    consultationFee: 45,
-    rating: 4.9,
-    languages: ['English', 'Spanish'],
-    clinicLocation: 'Downtown Clinic',
-    availability: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-    qualifications: ['MBBS', 'MD Internal Medicine']
-  });
+  const doctors = await Doctor.create([
+    {
+      userId: users[1]._id,
+      specialization: 'General Physician',
+      experienceYears: 12,
+      bio: 'General physician focused on preventive care, first consultation, and symptom triage.',
+      consultationFee: 45,
+      rating: 4.9,
+      languages: ['English', 'Hindi'],
+      clinicLocation: 'Downtown Clinic',
+      availability: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      qualifications: ['MBBS', 'MD Internal Medicine']
+    },
+    {
+      userId: users[3]._id,
+      specialization: 'Cardiologist',
+      experienceYears: 10,
+      bio: 'Cardiologist helping patients with heart health, hypertension, and follow-up care.',
+      consultationFee: 80,
+      rating: 4.8,
+      languages: ['English', 'Hindi', 'Marathi'],
+      clinicLocation: 'City Heart Centre',
+      availability: ['Mon', 'Wed', 'Fri'],
+      qualifications: ['MBBS', 'MD', 'DM Cardiology']
+    },
+    {
+      userId: users[4]._id,
+      specialization: 'Dermatologist',
+      experienceYears: 8,
+      bio: 'Dermatologist for skin, hair, and allergy-related consultations.',
+      consultationFee: 60,
+      rating: 4.7,
+      languages: ['English', 'Hindi', 'Gujarati'],
+      clinicLocation: 'Skin Care Clinic',
+      availability: ['Tue', 'Thu', 'Sat'],
+      qualifications: ['MBBS', 'MD Dermatology']
+    },
+    {
+      userId: users[5]._id,
+      specialization: 'Pediatrician',
+      experienceYears: 9,
+      bio: 'Pediatrician for child wellness, vaccinations, and routine medical support.',
+      consultationFee: 50,
+      rating: 4.9,
+      languages: ['English', 'Hindi', 'Tamil'],
+      clinicLocation: 'Children Health Clinic',
+      availability: ['Mon', 'Tue', 'Thu', 'Sat'],
+      qualifications: ['MBBS', 'MD Pediatrics']
+    }
+  ]);
 
   const today = new Date().toISOString().slice(0, 10);
   await AppointmentSlot.create([
-    { doctorId: doctor._id, date: today, startTime: '09:00', endTime: '09:30' },
-    { doctorId: doctor._id, date: today, startTime: '10:00', endTime: '10:30' },
-    { doctorId: doctor._id, date: today, startTime: '11:00', endTime: '11:30' }
+    { doctorId: doctors[0]._id, date: today, startTime: '09:00', endTime: '09:30' },
+    { doctorId: doctors[0]._id, date: today, startTime: '10:00', endTime: '10:30' },
+    { doctorId: doctors[1]._id, date: today, startTime: '11:00', endTime: '11:30' },
+    { doctorId: doctors[1]._id, date: today, startTime: '15:00', endTime: '15:30' },
+    { doctorId: doctors[2]._id, date: today, startTime: '12:00', endTime: '12:30' },
+    { doctorId: doctors[2]._id, date: today, startTime: '16:00', endTime: '16:30' },
+    { doctorId: doctors[3]._id, date: today, startTime: '13:00', endTime: '13:30' },
+    { doctorId: doctors[3]._id, date: today, startTime: '17:00', endTime: '17:30' }
   ]);
 
   await AIKnowledgeBase.create([
@@ -62,6 +108,7 @@ export const seedDemoData = async ({ disconnect = true } = {}) => {
   console.log('Seed completed');
   console.log('Patient login: patient@demo.com / Patient@123');
   console.log('Doctor login: doctor@demo.com / Doctor@123');
+  console.log('Additional doctor logins: priya.nair@demo.com / Doctor@123, rahul.mehta@demo.com / Doctor@123, ananya.iyer@demo.com / Doctor@123');
   console.log('Admin login: admin@demo.com / Admin@123');
 
   if (disconnect) {

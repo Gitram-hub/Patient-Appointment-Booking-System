@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { api } from '../../services/api.js';
 import { DoctorCard } from '../../components/doctors/DoctorCard.jsx';
@@ -37,9 +36,7 @@ export default function DoctorsPage() {
 
       <div className="grid gap-4 xl:grid-cols-2">
         {doctors.map((doctor) => (
-          <Link key={doctor._id} to={`/doctors/${doctor._id}`}>
-            <DoctorCard doctor={doctor} />
-          </Link>
+          <DoctorCard key={doctor._id} doctor={doctor} />
         ))}
       </div>
     </div>

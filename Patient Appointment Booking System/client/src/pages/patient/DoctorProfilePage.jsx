@@ -8,6 +8,7 @@ export default function DoctorProfilePage() {
   const [doctor, setDoctor] = useState(null);
   const [slots, setSlots] = useState([]);
   const [reason, setReason] = useState('');
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   useEffect(() => {
     if (!id) return;
@@ -48,7 +49,11 @@ export default function DoctorProfilePage() {
         <textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Reason for visit" className="mt-4 w-full rounded-2xl border border-slate-200 bg-white p-4 outline-none dark:border-slate-800 dark:bg-slate-950" />
         <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {slots.map((slot) => (
-            <button key={slot._id} onClick={() => book(slot)} className="rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:border-clinic-300 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900">
+            <button
+              key={slot._id}
+              onClick={() => setSelectedSlot(slot)}
+              className={`rounded-2xl border p-4 text-left shadow-sm transition hover:border-clinic-300 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900 ${selectedSlot?._id === slot._id ? 'border-clinic-500 bg-clinic-50 dark:bg-clinic-900/20' : 'border-slate-200 bg-white'}`}
+            >
               <p className="font-semibold">{slot.date}</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 {slot.startTime} - {slot.endTime}
@@ -56,6 +61,19 @@ export default function DoctorProfilePage() {
               <p className="mt-2 text-xs uppercase tracking-[0.35em] text-clinic-600">{slot.status}</p>
             </button>
           ))}
+        </div>
+        <div className="mt-6 flex items-center justify-between gap-4">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            {selectedSlot ? `Selected slot: ${selectedSlot.date} ${selectedSlot.startTime} - ${selectedSlot.endTime}` : 'Select a slot, then book it.'}
+          </p>
+          <button
+            type="button"
+            disabled={!selectedSlot}
+            onClick={() => selectedSlot && book(selectedSlot)}
+            className="rounded-2xl bg-clinic-600 px-5 py-3 font-semibold text-white shadow-soft transition hover:bg-clinic-700 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Book Appointment
+          </button>
         </div>
       </div>
     </div>
