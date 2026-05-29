@@ -3,6 +3,7 @@ import { ProtectedRoute } from './routes/ProtectedRoute.jsx';
 import { AppLayout } from './layouts/AppLayout.jsx';
 import LandingPage from './pages/public/LandingPage.jsx';
 import AuthPage from './pages/auth/AuthPage.jsx';
+import AdminAuthPage from './pages/auth/AdminAuthPage.jsx';
 import PatientDashboard from './pages/patient/PatientDashboard.jsx';
 import DoctorsPage from './pages/patient/DoctorsPage.jsx';
 import DoctorProfilePage from './pages/patient/DoctorProfilePage.jsx';
@@ -19,6 +20,7 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<AuthPage mode="login" />} />
       <Route path="/register" element={<AuthPage mode="register" />} />
+      <Route path="/admin-auth" element={<AdminAuthPage />} />
       <Route path="/assistant" element={<AssistantPage />} />
       <Route
         element={

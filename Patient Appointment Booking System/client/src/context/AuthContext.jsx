@@ -19,12 +19,14 @@ export const AuthProvider = ({ children }) => {
     const { data } = await api.post('/auth/login', { email, password });
     persistSession(data.token, data.user);
     toast.success('Logged in successfully');
+    return data.user;
   };
 
   const register = async (payload) => {
     const { data } = await api.post('/auth/register', payload);
     persistSession(data.token, data.user);
     toast.success('Account created');
+    return data.user;
   };
 
   const logout = () => {

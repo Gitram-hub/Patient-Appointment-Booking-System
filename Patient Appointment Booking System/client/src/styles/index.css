@@ -22,3 +22,38 @@ body {
 .glass-panel {
   @apply border border-white/20 bg-white/80 backdrop-blur-xl shadow-soft dark:border-white/10 dark:bg-slate-900/80;
 }
+:root {
+  --primary: #16a34a;
+  --primary-hover: #15803d;
+  --primary-light: #dcfce7;
+  --primary-border: #86efac;
+  --primary-text: #166534;
+}
+
+.dark {
+  --primary: #22c55e;
+  --primary-hover: #16a34a;
+  --primary-light: rgba(34, 197, 94, 0.15);
+  --primary-border: rgba(34, 197, 94, 0.3);
+  --primary-text: #bbf7d0;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-primary-light {
+  background-color: var(--primary-light);
+}
+
+.text-primary {
+  color: var(--primary-text);
+}
+
+.border-primary {
+  border-color: var(--primary-border);
+}
+
+.hover-primary:hover {
+  background-color: var(--primary-hover);
+}
