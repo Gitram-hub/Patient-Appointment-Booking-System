@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { api } from '../../services/api.js';
 import { StatCard } from '../../components/common/StatCard.jsx';
@@ -15,6 +16,7 @@ const fallbackStats = {
 };
 
 export default function PatientDashboard() {
+  const navigate = useNavigate();
   const [stats, setStats] = useState(fallbackStats);
   const [appointments, setAppointments] = useState([]);
 
@@ -31,11 +33,11 @@ export default function PatientDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-        <StatCard title="Total appointments" value={stats.totalAppointments} change="Across all patients" />
-        <StatCard title="Pending requests" value={stats.pendingAppointments} change="Needs review" accent="bg-amber-500" />
-        <StatCard title="Completed" value={stats.completedAppointments} change="Closed appointments" accent="bg-emerald-500" />
-        <StatCard title="Doctors" value={stats.doctorsCount} change="Active clinicians" accent="bg-sky-500" />
-        <StatCard title="Available slots" value={stats.availableSlots} change="Ready to book" accent="bg-violet-500" />
+        <StatCard title="Total appointments" value={stats.totalAppointments} change="Across all patients" onClick={() => navigate('/dashboard/details/appointments')} />
+        <StatCard title="Pending requests" value={stats.pendingAppointments} change="Needs review" accent="bg-amber-500" onClick={() => navigate('/dashboard/details/pending')} />
+        <StatCard title="Completed" value={stats.completedAppointments} change="Closed appointments" accent="bg-emerald-500" onClick={() => navigate('/dashboard/details/completed')} />
+        <StatCard title="Doctors" value={stats.doctorsCount} change="Active clinicians" accent="bg-sky-500" onClick={() => navigate('/dashboard/details/doctors')} />
+        <StatCard title="Available slots" value={stats.availableSlots} change="Ready to book" accent="bg-violet-500" onClick={() => navigate('/dashboard/details/slots')} />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">

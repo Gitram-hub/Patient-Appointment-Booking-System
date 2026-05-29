@@ -10,48 +10,65 @@ const navItems = [
   { to: '/analytics', label: 'Analytics', icon: BarChart3 }
 ];
 
-export const Sidebar = () => {
+export const Sidebar = ({ mobileOpen = false, onMobileClose }) => {
   const { user } = useAuth();
 
-  return (
-    <aside className="hidden w-72 border-r border-slate-200/80 bg-white/90 px-4 py-6 backdrop-blur-xl lg:block dark:border-slate-800 dark:bg-slate-950/90">
-      <div className="flex h-full flex-col gap-6">
-        <div className="rounded-3xl bg-clinic-600 p-5 text-white shadow-soft">
-          <p className="text-xs uppercase tracking-[0.4em] text-clinic-100">Patient Booking</p>
-          <h2 className="mt-3 text-2xl font-semibold">AI-Powered Care</h2>
-          <p className="mt-2 text-sm text-clinic-50/90">Appointment scheduling, doctor management, and instant healthcare guidance.</p>
-        </div>
+  const renderSidebarContent = (isMobile = false) => (
+    <>
+      <div className="rounded-3xl bg-clinic-600 p-5 text-white shadow-soft">
+        <p className="text-xs uppercase tracking-[0.4em] text-clinic-100">Patient Booking</p>
+        <h2 className="mt-3 text-2xl font-semibold">AI-Powered Care</h2>
+        <p className="mt-2 text-sm text-clinic-50/90">Appointment scheduling, doctor management, and instant healthcare guidance.</p>
+      </div>
 
-        <nav className="space-y-2">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
-                    isActive
-                      ? 'bg-clinic-600 text-white shadow-soft'
-                      : 'text-slate-600 hover:bg-clinic-50 hover:text-clinic-700 dark:text-slate-300 dark:hover:bg-slate-900'
-                  }`
-                }
-              >
-                <Icon className="h-4 w-4" />
-                {item.label}
-              </NavLink>
-            );
-          })}
-        </nav>
+      <nav className="space-y-2">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={isMobile ? onMobileClose : undefined}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                  isActive
+                    ? 'bg-clinic-600 text-white shadow-soft'
+                    : 'text-slate-600 hover:bg-clinic-50 hover:text-clinic-700 dark:text-slate-300 dark:hover:bg-slate-900'
+                }`
+              }
+            >
+              <Icon className="h-4 w-4" />
+              {item.label}
+            </NavLink>
+          );
+        })}
+      </nav>
 
-        <div className="mt-auto rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
-          <p className="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Signed in as</p>
-          <div className="mt-2">
-            <p className="font-semibold text-slate-900 dark:text-slate-100">{user?.name || 'Guest user'}</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">{user?.role || 'patient'}</p>
-          </div>
+      <div className="mt-auto rounded-3xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
+        <p className="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Signed in as</p>
+        <div className="mt-2">
+          <p className="font-semibold text-slate-900 dark:text-slate-100">{user?.name || 'Guest user'}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">{user?.role || 'patient'}</p>
         </div>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      <aside className="hidden w-72 border-r border-slate-200/80 bg-white/90 px-4 py-6 backdrop-blur-xl lg:block dark:border-slate-800 dark:bg-slate-950/90">
+        <div className="flex h-full flex-col gap-6">{renderSidebarContent()}</div>
+      </aside>
+
+      {mobileOpen ? <button type="button" onClick={onMobileClose} className="fixed inset-0 z-30 bg-slate-950/45 lg:hidden" aria-label="Close menu" /> : null}
+
+      <aside
+        className={`fixed left-0 top-0 z-40 flex h-full w-72 flex-col gap-6 border-r border-slate-200/80 bg-white/95 px-4 py-6 backdrop-blur-xl transition-transform duration-200 lg:hidden dark:border-slate-800 dark:bg-slate-950/95 ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {renderSidebarContent(true)}
+      </aside>
+    </>
   );
 };

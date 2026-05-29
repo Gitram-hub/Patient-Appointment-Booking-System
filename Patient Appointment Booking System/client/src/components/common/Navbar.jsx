@@ -2,7 +2,7 @@ import { Bell, Menu, MoonStar, SunMedium } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTheme } from '../../context/ThemeContext.jsx';
 
-export const Navbar = () => {
+export const Navbar = ({ onMenuClick }) => {
   const { user, logout } = useAuth();
   const { darkMode, toggleTheme } = useTheme();
 
@@ -10,7 +10,11 @@ export const Navbar = () => {
     <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/80">
       <div className="flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
-          <button className="rounded-xl border border-slate-200 bg-white p-2 shadow-sm lg:hidden dark:border-slate-800 dark:bg-slate-900">
+          <button
+            type="button"
+            onClick={onMenuClick}
+            className="rounded-xl border border-slate-200 bg-white p-2 shadow-sm lg:hidden dark:border-slate-800 dark:bg-slate-900"
+          >
             <Menu className="h-5 w-5" />
           </button>
           <div>

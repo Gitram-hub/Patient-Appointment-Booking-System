@@ -5,6 +5,7 @@ import LandingPage from './pages/public/LandingPage.jsx';
 import AuthPage from './pages/auth/AuthPage.jsx';
 import AdminAuthPage from './pages/auth/AdminAuthPage.jsx';
 import PatientDashboard from './pages/patient/PatientDashboard.jsx';
+import PatientMetricDetailsPage from './pages/patient/PatientMetricDetailsPage.jsx';
 import DoctorsPage from './pages/patient/DoctorsPage.jsx';
 import DoctorProfilePage from './pages/patient/DoctorProfilePage.jsx';
 import AppointmentsPage from './pages/patient/AppointmentsPage.jsx';
@@ -31,6 +32,7 @@ export default function App() {
         }
       >
         <Route path="/dashboard" element={<PatientDashboard />} />
+        <Route path="/dashboard/details/:view" element={<PatientMetricDetailsPage />} />
         <Route path="/doctors" element={<DoctorsPage />} />
         <Route path="/doctors/:id" element={<DoctorProfilePage />} />
         <Route path="/appointments" element={<AppointmentsPage />} />
