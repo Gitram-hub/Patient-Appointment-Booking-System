@@ -14,6 +14,5 @@ export const env = {
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   mongoUri: process.env.MONGO_URI || '',
   mongoDbName: process.env.MONGO_DB_NAME || '',
-  uploadDir: process.env.UPLOAD_DIR || 'uploads',
-  aiServiceUrl: process.env.AI_SERVICE_URL || 'http://localhost:5001'
+  uploadDir: process.env.UPLOAD_DIR || 'uploads'
 };

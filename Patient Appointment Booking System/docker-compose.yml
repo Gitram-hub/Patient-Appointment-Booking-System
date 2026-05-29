@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: client/Dockerfile
       args:
-        VITE_API_URL: https://patient-appointment-booking-system-qxvb.onrender.com/api
+        VITE_API_URL: http://localhost:5000/api
     container_name: patient-booking-client
     ports:
       - "5173:80"
@@ -18,42 +18,25 @@ services:
     container_name: patient-booking-server
     ports:
       - "5000:5000"
-    env_file:
-      - .env
     environment:
       - NODE_ENV=production
       - PORT=5000
       - CLIENT_URL=http://localhost:5173
-      - AI_SERVICE_URL=http://ai-service:5001
+      - JWT_SECRET=change-this-in-production
+      - JWT_EXPIRES_IN=7d
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB_NAME=patient_booking
     depends_on:
-      - ai-service
+      - mongo
 
-  ai-service:
-    build:
-      context: .
-      dockerfile: ai-service/Dockerfile
-    container_name: patient-booking-ai-service
+  mongo:
+    image: mongo:7
+    container_name: patient-booking-mongo
     ports:
-      - "5001:5001"
-    environment:
-      - AI_PORT=5001
-      - OPENAI_MODEL=gpt-4o-mini
-      - CHROMA_URL=http://chroma:8000
-      - CHROMA_COLLECTION=patient-booking-knowledge
-    depends_on:
-      - chroma
-
-  chroma:
-    image: ghcr.io/chroma-core/chroma:latest
-    container_name: patient-booking-chroma
-    ports:
-      - "8000:8000"
+      - "27017:27017"
     volumes:
-      - chroma_data:/chroma/chroma
-    environment:
-      - IS_PERSISTENT=TRUE
-      - CHROMA_SERVER_HOST=0.0.0.0
-      - CHROMA_SERVER_HTTP_PORT=8000
+      - mongo_data:/data/db
+      - "8000:8000"
 
 volumes:
-  chroma_data:
+  mongo_data:

@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "axios": "^1.8.4",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -19,7 +18,8 @@
     "mongoose": "^8.13.2",
     "morgan": "^1.10.0",
     "mongodb-memory-server": "^10.1.4",
-    "multer": "^2.0.1"
+    "multer": "^2.0.1",
+    "openai": "^4.93.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

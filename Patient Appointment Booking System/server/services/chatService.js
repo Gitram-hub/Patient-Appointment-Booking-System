@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { env } from '../utils/env.js';
+import { env } from '../config/env.js';
 import { getVectorStore } from '../vectorstore/vectorStore.js';
 
 const client = env.openAiApiKey ? new OpenAI({ apiKey: env.openAiApiKey }) : null;

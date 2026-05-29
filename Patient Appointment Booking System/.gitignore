@@ -10,7 +10,6 @@ coverage
 *.log
 client/dist
 server/dist
-ai-service/dist
 client/.vite
 uploads
 chroma_db

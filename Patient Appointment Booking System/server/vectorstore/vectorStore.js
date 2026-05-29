@@ -1,13 +1,11 @@
-import { readFile, writeFile } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 import path from 'path';
-import { env } from '../utils/env.js';
 import { knowledgeSeed } from '../knowledgebase/seed.js';
 import { LocalEmbeddings } from '../embeddings/localEmbeddings.js';
 
 let store = null;
 
 const embeddings = new LocalEmbeddings();
-
 const persistencePath = path.join(process.cwd(), 'data', 'vectorstore.json');
 
 const cosineSimilarity = (a, b) => {
