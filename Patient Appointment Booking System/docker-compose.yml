@@ -1,0 +1,15 @@
+services:
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: patient-booking-chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - CHROMA_SERVER_HOST=0.0.0.0
+      - CHROMA_SERVER_HTTP_PORT=8000
+
+volumes:
+  chroma_data:
