@@ -36,6 +36,18 @@ const buildRetriever = (documents, vectors) => ({
       .filter((item) => item.score >= 0.12)
       .slice(0, k)
       .map((item) => item.document);
+  },
+  getRelevantMatches: async (query, k = 4) => {
+    const queryVector = await embeddings.embedQuery(query);
+
+    return documents
+      .map((document, index) => ({
+        document,
+        score: cosineSimilarity(queryVector, vectors[index])
+      }))
+      .sort((left, right) => right.score - left.score)
+      .filter((item) => item.score >= 0.12)
+      .slice(0, k);
   }
 });
 
@@ -62,7 +74,8 @@ export const getVectorStore = async () => {
 
   store = {
     asRetriever: (k = 4) => ({
-      getRelevantDocuments: (query) => buildRetriever(documents, vectors).getRelevantDocuments(query, k)
+      getRelevantDocuments: (query) => buildRetriever(documents, vectors).getRelevantDocuments(query, k),
+      getRelevantMatches: (query) => buildRetriever(documents, vectors).getRelevantMatches(query, k)
     })
   };
 

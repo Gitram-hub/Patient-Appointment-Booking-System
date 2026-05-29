@@ -8,7 +8,7 @@ const serializeMetadata = (metadata) => `${metadata.title || ''} | ${metadata.so
 
 const fallbackAnswer = (docs) => {
   if (!docs.length) {
-    return 'I could not find a strong match in the clinic knowledge base. Please consult the clinic for a human review.';
+    return 'I can help with doctors, appointments, and clinic guidance, but I could not find a specific clinic match for that question.';
   }
 
   const guidance = docs
@@ -22,7 +22,9 @@ const fallbackAnswer = (docs) => {
 export const answerChat = async ({ message, conversationId, context = {}, user = null }) => {
   const store = await getVectorStore();
   const retriever = store.asRetriever(4);
-  const docs = await retriever.getRelevantDocuments(message);
+  const matches = await retriever.getRelevantMatches(message);
+  const docs = matches.map((item) => item.document);
+  const topScore = matches[0]?.score || 0;
 
   const citations = docs.map((doc) => ({
     title: String(doc.metadata?.title || ''),
@@ -31,6 +33,14 @@ export const answerChat = async ({ message, conversationId, context = {}, user =
   }));
 
   if (!client) {
+    if (topScore < 0.22) {
+      return {
+        answer: 'I can help with doctors, appointments, and clinic guidance, but I do not have a specific answer for that question yet.',
+        citations: [],
+        conversationId: conversationId || `conv-${Date.now()}`
+      };
+    }
+
     return { answer: fallbackAnswer(docs), citations, conversationId: conversationId || `conv-${Date.now()}` };
   }
 
@@ -46,6 +56,6 @@ export const answerChat = async ({ message, conversationId, context = {}, user =
     temperature: 0.2
   });
 
-  const answer = completion.choices?.[0]?.message?.content || fallbackAnswer(docs);
+  const answer = completion.choices?.[0]?.message?.content || (topScore < 0.22 ? 'I can help with doctors, appointments, and clinic guidance, but I do not have a specific answer for that question yet.' : fallbackAnswer(docs));
   return { answer, citations, conversationId: conversationId || `conv-${Date.now()}` };
 };
