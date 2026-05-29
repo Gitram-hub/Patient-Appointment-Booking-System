@@ -19,7 +19,22 @@ const __dirname = path.dirname(__filename);
 export const createApp = () => {
   const app = express();
 
-  app.use(cors({ origin: env.clientUrl, credentials: true }));
+  app.use(cors({
+    origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      if (env.clientUrls.includes('*') || env.clientUrls.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true
+  }));
   app.use(express.json({ limit: '2mb' }));
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());

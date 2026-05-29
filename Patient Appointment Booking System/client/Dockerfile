@@ -8,7 +8,7 @@ COPY ai-service/package.json ai-service/package.json
 RUN npm ci
 
 COPY client ./client
-ARG VITE_API_URL=http://localhost:5000/api
+ARG VITE_API_URL=https://patient-appointment-booking-system-qxvb.onrender.com/api
 ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build -w client
 
