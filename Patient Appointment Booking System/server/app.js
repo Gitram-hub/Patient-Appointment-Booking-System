@@ -58,7 +58,7 @@ export const createApp = () => {
     res.json({ success: true, message: 'Patient Booking API is running' });
   });
 
-  app.use('/api/auth', authRoutes);
+  app.use('/auth', authRoutes);
   app.use('/api/doctors', doctorRoutes);
   app.use('/api/slots', slotRoutes);
   app.use('/api/appointments', appointmentRoutes);
