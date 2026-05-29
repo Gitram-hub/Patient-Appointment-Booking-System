@@ -18,12 +18,19 @@ const __dirname = path.dirname(__filename);
 
 export const createApp = () => {
   const app = express();
-  const allowedOrigins = [
-    'http://localhost:5173',
-    'https://patient-appointment-booking-system.vercel.app',
-    env.clientUrl,
-    ...env.clientUrls
-  ].filter(Boolean);
+  const allowedOrigins = [env.clientUrl, ...env.clientUrls, 'http://localhost:5173', 'https://patient-appointment-booking-system.vercel.app'].filter(Boolean);
+
+  const isAllowedOrigin = (origin) => {
+    if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+      return true;
+    }
+
+    if (origin.startsWith('http://localhost:') || origin.startsWith('https://') && origin.endsWith('.vercel.app')) {
+      return true;
+    }
+
+    return false;
+  };
 
   app.use(cors({
     origin: (origin, callback) => {
@@ -32,7 +39,7 @@ export const createApp = () => {
         return;
       }
 
-      if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         callback(null, true);
         return;
       }

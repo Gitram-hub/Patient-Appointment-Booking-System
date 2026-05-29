@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+const normalizeApiBaseUrl = (value) => {
+  const baseUrl = (value || 'https://patient-appointment-booking-system-qxvb.onrender.com').replace(/\/$/, '');
+  return baseUrl.endsWith('/api') ? baseUrl : `${baseUrl}/api`;
+};
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://patient-appointment-booking-system-qxvb.onrender.com/api',
+  baseURL: normalizeApiBaseUrl(import.meta.env.VITE_API_URL),
   withCredentials: true
 });
 
