@@ -33,6 +33,7 @@ const buildRetriever = (documents, vectors) => ({
         score: cosineSimilarity(queryVector, vectors[index])
       }))
       .sort((left, right) => right.score - left.score)
+      .filter((item) => item.score >= 0.12)
       .slice(0, k)
       .map((item) => item.document);
   }

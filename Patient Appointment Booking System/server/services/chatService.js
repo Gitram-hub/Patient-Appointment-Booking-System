@@ -10,7 +10,13 @@ const fallbackAnswer = (docs) => {
   if (!docs.length) {
     return 'I could not find a strong match in the clinic knowledge base. Please consult the clinic for a human review.';
   }
-  return `Based on the clinic knowledge base, the most relevant guidance is: ${docs[0].pageContent}`;
+
+  const guidance = docs
+    .slice(0, 2)
+    .map((doc) => `- ${doc.metadata?.title || 'Clinic guidance'}: ${doc.pageContent}`)
+    .join('\n');
+
+  return `I could not reach Groq, so here is the most relevant clinic guidance I found:\n${guidance}`;
 };
 
 export const answerChat = async ({ message, conversationId, context = {}, user = null }) => {

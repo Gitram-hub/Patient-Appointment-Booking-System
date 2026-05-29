@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 export const ChatWidget = () => {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
-  const [question, setQuestion] = useState('Which doctor should I consult for fever?');
+  const [question, setQuestion] = useState('How can I help you with doctors, appointments, or clinic guidance');
   const [messages, setMessages] = useState([{ role: 'assistant', content: 'Hello. Ask me about doctors, appointments, documents, or clinic guidance.' }]);
   const [typing, setTyping] = useState(false);
 
