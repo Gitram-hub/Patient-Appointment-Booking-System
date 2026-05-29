@@ -58,12 +58,20 @@ export const createApp = () => {
     res.json({ success: true, message: 'Patient Booking API is running' });
   });
 
-  app.use('/auth', authRoutes);
+  app.use('/api/auth', authRoutes);
   app.use('/api/doctors', doctorRoutes);
   app.use('/api/slots', slotRoutes);
   app.use('/api/appointments', appointmentRoutes);
   app.use('/api/dashboard', dashboardRoutes);
   app.use('/api/ai', aiRoutes);
+
+  // Backward-compatible aliases for older frontend builds still calling non-/api routes.
+  app.use('/auth', authRoutes);
+  app.use('/doctors', doctorRoutes);
+  app.use('/slots', slotRoutes);
+  app.use('/appointments', appointmentRoutes);
+  app.use('/dashboard', dashboardRoutes);
+  app.use('/ai', aiRoutes);
 
   app.use(notFound);
   app.use(errorHandler);
