@@ -1,8 +1,8 @@
-import OpenAI from 'openai';
+import Groq from 'groq-sdk';
 import { env } from '../config/env.js';
 import { getVectorStore } from '../vectorstore/vectorStore.js';
 
-const client = env.openAiApiKey ? new OpenAI({ apiKey: env.openAiApiKey }) : null;
+const client = env.groqApiKey ? new Groq({ apiKey: env.groqApiKey }) : null;
 
 const serializeMetadata = (metadata) => `${metadata.title || ''} | ${metadata.source || ''} | ${metadata.tags || ''}`;
 
@@ -35,7 +35,7 @@ export const answerChat = async ({ message, conversationId, context = {}, user =
   const prompt = `You are a healthcare appointment assistant for a patient booking system.\nAnswer only with information that is relevant, safe, and practical.\nUse the provided context and retrieved knowledge to answer.\nIf the question is about urgent symptoms, recommend seeking immediate medical care.\nCite sources briefly when available.\n\nUser context: ${JSON.stringify(user || {})}\nConversation context: ${JSON.stringify(context)}\nRetrieved knowledge:\n${knowledge}\n\nUser question: ${message}`;
 
   const completion = await client.chat.completions.create({
-    model: env.openAiModel,
+    model: env.groqModel,
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.2
   });

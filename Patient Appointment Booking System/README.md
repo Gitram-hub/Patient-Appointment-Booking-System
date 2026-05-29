@@ -5,7 +5,7 @@ A production-ready full-stack healthcare appointment platform built with JavaScr
 ## Stack
 - Frontend: React, Vite, Tailwind CSS, React Router DOM, Axios, React Hot Toast, Context API
 - Backend: Node.js, Express.js, MongoDB, Mongoose, JWT, bcryptjs
-- AI Service: LangChain, OpenAI-compatible chat, Chroma vector store, semantic retrieval
+- AI Service: Groq chat completions, local knowledge retrieval, semantic retrieval
 
 ## Local Setup
 1. Copy `.env.example` to `.env` and fill in values if needed.
