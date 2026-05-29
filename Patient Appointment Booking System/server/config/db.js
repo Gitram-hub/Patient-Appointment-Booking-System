@@ -6,7 +6,8 @@ let memoryServer = null;
 
 export const connectDatabase = async () => {
   const uri = env.mongoUri || (await getMemoryUri());
-  await mongoose.connect(uri, { dbName: env.mongoDbName });
+  const options = env.mongoDbName ? { dbName: env.mongoDbName } : undefined;
+  await mongoose.connect(uri, options);
 };
 
 const getMemoryUri = async () => {

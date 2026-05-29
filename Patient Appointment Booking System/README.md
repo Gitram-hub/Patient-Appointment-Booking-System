@@ -9,11 +9,12 @@ A production-ready full-stack healthcare appointment platform built with JavaScr
 
 ## Local Setup
 1. Copy `.env.example` to `.env` and fill in values if needed.
-2. Install dependencies from the repo root:
+2. For MongoDB Atlas, set `MONGO_URI` to your cluster connection string. Leave `MONGO_DB_NAME` blank to use the database name embedded in the URI.
+3. Install dependencies from the repo root:
    ```bash
    npm install
    ```
-3. Start all services:
+4. Start all services:
    ```bash
    npm run dev
    ```
